@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: wordpress
+  namespace: argocd
+spec:
+  destination:
+    namespace: wordpress
+    server: "https://kubernetes.default.svc"
+  project: default
+  source:
+    path: deployment
+    repoURL: "https://github.com/sushantsahu1187/02-emobility-exercise-02.git"
+    targetRevision: main
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

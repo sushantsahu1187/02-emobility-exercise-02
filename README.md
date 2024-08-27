@@ -14,7 +14,7 @@ Good Luck !
 - kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 - brew install argocd
 - kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
-- kubectl port-forward svc/argocd-server -n argocd 8080:443
+- kubectl port-forward svc/argocd-server -n argocd 8081:443
 - Get login password via $ argocd admin initial-password -n argocd
 - kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "ClusterIP"}}'
 
