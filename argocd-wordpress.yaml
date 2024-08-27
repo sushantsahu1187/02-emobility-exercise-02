@@ -13,6 +13,7 @@ spec:
     repoURL: "https://github.com/sushantsahu1187/02-emobility-exercise-02.git"
     targetRevision: main
   syncPolicy:
-    automated: {}
+    automated:
+      prune: true
     syncOptions:
       - CreateNamespace=true

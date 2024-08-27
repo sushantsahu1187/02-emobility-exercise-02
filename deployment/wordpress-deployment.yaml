@@ -18,6 +18,7 @@ metadata:
   name: wordpress
   namespace: wordpress
 spec:
+  replicas: 2
   selector:
     matchLabels:
       app: wordpress
