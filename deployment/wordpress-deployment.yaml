@@ -11,14 +11,13 @@ spec:
       storage: 1Gi
 
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: wordpress
   namespace: wordpress
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: wordpress
@@ -30,31 +29,30 @@ spec:
         app: wordpress
     spec:
       containers:
-      - image: wordpress:latest
-        name: wordpress
-        env:
-        - name: WORDPRESS_DB_HOST
-          # value: mysql:3306 
-          value: mysql.wordpress.svc.cluster.local
-        - name: WORDPRESS_DB_USER
-          value: sushant
-        - name: WORDPRESS_DB_PASSWORD
-          value: sushant123
-        - name: WORDPRESS_DB_NAME
-          value: wordpressdb
-        ports:
-        - containerPort: 80
+        - image: wordpress:latest
           name: wordpress
-        volumeMounts:
-        - name: wordpress-persistent-storage
-          mountPath: /var/www/html
+          env:
+            - name: WORDPRESS_DB_HOST
+              # value: mysql:3306
+              value: mysql.wordpress.svc.cluster.local
+            - name: WORDPRESS_DB_USER
+              value: sushant
+            - name: WORDPRESS_DB_PASSWORD
+              value: sushant123
+            - name: WORDPRESS_DB_NAME
+              value: wordpressdb
+          ports:
+            - containerPort: 80
+              name: wordpress
+          volumeMounts:
+            - name: wordpress-persistent-storage
+              mountPath: /var/www/html
       volumes:
-      - name: wordpress-persistent-storage
-        persistentVolumeClaim:
-          claimName: wordpress-pvc
+        - name: wordpress-persistent-storage
+          persistentVolumeClaim:
+            claimName: wordpress-pvc
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -62,14 +60,13 @@ metadata:
   namespace: wordpress
 spec:
   ports:
-  - port: 80
-    targetPort: 80
+    - port: 80
+      targetPort: 80
   selector:
     app: wordpress
   type: LoadBalancer
 
 ---
-
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
